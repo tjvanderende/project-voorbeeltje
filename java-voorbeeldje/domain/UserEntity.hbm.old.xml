@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 
+      3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ipass.server.domain.UserEntity" table="users">
+		<meta attribute="class-description">
+			Hierin staan de object properties van de User entiteit.
+		</meta>
+		<id name="id" type="java.lang.Long" column="id">
+			<generator class="native" />
+		</id>
+		<property name="firstname" column="firstname" type="string" />
+		<property name="lastname" column="lastname" type="string" />
+		<property name="address" column="address" type="string" />
+		<property name="residence" column="residence" type="string" />
+		<property name="email" column="email" type="string" />
+		<property name="password" column="password" type="string" />
+		<property name="phone" column="phone" type="integer" />
+		<property name="latitude" column="latitude" type="double" />
+		<property name="longitude" column="longitude" type="double" />
+		<property name="aandoening" column="aandoening" type="string" />
+		<set name="patients" table="user_patients" cascade="none" lazy="false">
+			<key column="user_id" />
+			<many-to-many column="user_patients_id" class="ipass.server.domain.UserEntity" />
+		</set>
+		<set name="zorgdragers" table="user_patients" cascade="none" lazy="false">
+			<key column="user_patients_id" />
+			<many-to-many column="user_id" class="ipass.server.domain.UserEntity" />
+		</set>
+		<set inverse="true" name="alarms" cascade="all" lazy="true" table="alarms" fetch="select">
+			<key column="user_id" />
+			<one-to-many class="ipass.server.domain.AlarmEntity" />
+		</set>
+		<set name="alerts" lazy="false" table="alerts" fetch="select" cascade="all">
+			<key column="users_id" />
+			<one-to-many class="ipass.server.domain.AlertEntity" />
+		</set>
+	</class>
+</hibernate-mapping>

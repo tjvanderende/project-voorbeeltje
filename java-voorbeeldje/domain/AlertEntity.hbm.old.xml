@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 
+      3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ipass.server.domain.AlertEntity" table="alerts">
+        <meta attribute="class-description">
+            Hierin staan de object properties van de alert entiteit.
+        </meta>
+        <id name="id" type="java.lang.Long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="handled" type="java.lang.Boolean">
+            <column name="handled" sql-type="int"></column>
+        </property>
+
+        <many-to-one name="userAlert" cascade="save-update" fetch="select" column="users_id" class="ipass.server.domain.UserEntity" />
+        <one-to-one name="alertAlarm" cascade="save-update" fetch="select" class="ipass.server.domain.AlarmEntity" />
+       <!-- <property name="userAlarm" type="ipass.server.domain.UserEntity" /> -->
+    </class>
+</hibernate-mapping>

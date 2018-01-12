@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 
+      3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ipass.server.domain.AlarmEntity" table="alarms">
+        <meta attribute="class-description">
+            Hierin staan de object properties van de alarm entiteit.
+        </meta>
+        <id name="id" type="java.lang.Long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="day" column="day" type="string"/>
+        <property name="time" column="time" type="java.sql.Time"/>
+        <property name="active" type="java.lang.Boolean">
+            <column name="active" sql-type="int"></column>
+        </property>
+        <property name="keepsRunning"  type="java.lang.Boolean">
+            <column name="keeps_running" sql-type="int"></column>
+        </property>
+        <property name="userId" update="false" insert="true" column="user_id" type="java.lang.Long" />
+        <!-- <many-to-one name="userAlarm" cascade="save-update" fetch="select" column="user_id" class="ipass.server.domain.UserEntity" /> -->
+       <!-- <property name="userAlarm" type="ipass.server.domain.UserEntity" /> -->
+    </class>
+</hibernate-mapping>
